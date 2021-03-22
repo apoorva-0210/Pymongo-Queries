@@ -20,6 +20,10 @@ data_dict = df.to_dict("records")
 for row in tqdm(data_dict):
     if row['new_customer_id'] in lts:
         col.update({},{'$rename' : {"new_customer_id":"id_customer"}},multi=True)
+
+# You can also write the following code for updation:
+                     
+col.update({},{'$rename':{"new_customer_id":"id_customer"}}, multi=True)
         
 # How to insert data in mongodb
 
