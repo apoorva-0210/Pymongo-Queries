@@ -44,3 +44,21 @@ try:
     print('Done')
 except(pymongo.errors.ConnectionFailure) as e:
     print('Could not connect server', e)
+                      
+# How to update the values inside the mongodb document
+                               
+for row in tqdm(data_dict):
+    try:
+        if row[column_name] not in df[column_name]:
+            col.insert_one(row)
+        else:
+            print('update')
+            col.update_one({"id": row["id"]}, 
+                                  {"$set": {"name": row['name'], 
+                                            "email": row['email'],
+                                            "phone_no": row['phone_no'],
+                                            "address": row['address'],
+                                            "created_at": row['created_at'],
+                                            "updated_at": row['updated_at']}}, upsert=True)
+    except(pymongo.errors.DuplicateKeyError):
+        print('Error Occured:DuplicateKeyError')
