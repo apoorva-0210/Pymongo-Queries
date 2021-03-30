@@ -66,3 +66,18 @@ for row in tqdm(data_dict):
                                             "updated_at": row['updated_at']}}, upsert=True)
     except(pymongo.errors.DuplicateKeyError):
         print('Error Occured:DuplicateKeyError')
+                              
+# Psycopg2 code for extracting the data
+                               
+%%time
+try:
+    connection = psycopg2.connect(user = 'user_name',
+                                  password = "password",
+                                  host = "host",
+                                  port = "port",
+                                  database = "database_name")
+    cursor = connection.cursor()
+    df_beauty_interest = pd.read_sql("select * from table", connection)
+    print('Connection done')
+except (Exception, psycopg2.Error) as error :
+    print("Error while connecting to PostgreSQL", error)
