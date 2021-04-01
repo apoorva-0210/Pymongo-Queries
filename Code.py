@@ -81,3 +81,7 @@ try:
     print('Connection done')
 except (Exception, psycopg2.Error) as error :
     print("Error while connecting to PostgreSQL", error)
+
+# How to delete duplicate values/records from mongo
+                             
+col.remove({'field_name': {'$in': list(set(list_name))}})
