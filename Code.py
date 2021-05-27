@@ -85,3 +85,7 @@ except (Exception, psycopg2.Error) as error :
 # How to delete duplicate values/records from mongo
                              
 col.remove({'field_name': {'$in': list(set(list_name))}})
+                               
+# How to delete a column in a document using pymongo
+col.update({}, {'$unset': {'col_name':1}} , multi= True, upsert=True)
+
